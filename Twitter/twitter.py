@@ -1,4 +1,5 @@
 import tweepy as TP
+import os
 from Secrets import Twitter_SECRETS as TS
 
 CK = TS.CONSUMER_KEY
@@ -18,12 +19,22 @@ def get_v2_conn(CK, CS, AT, AS) -> TP.Client:
     )
     return client
 
+def get_text():
+    os.environ['BODY'] = 'Meu texto do meu post'    
+
 def Twitter_Post():
     client_v1 = get_v1_conn(CK, CS, AT, AS)
     client_v2 = get_v2_conn(CK, CS, AT, AS)
-    media_path = "./img1.jpg"
-    media = client_v1.media_upload(filename=media_path)
-    media_id = media.media_id
-    client_v2.create_tweet(text='I love my boyfriend :3', media_ids=[media_id])
+    media_paths = ["./img1.jpg", "./img2.jpg", "./img3.jpg", "./img4.jpg", "./img5.jpg"]
+    media_id = []
+    for media_path in media_paths:
+        print(os.getcwd())
+        print(media_path)
+        media = client_v1.media_upload(filename=media_path) 
+        media_id.append(media.media_id)
+    media_id_strs = [str(id) for id in media_id]
+    try: client_v2.create_tweet(text=os.getenv('BODY'), media_ids=media_id_strs) 
+    except: pass #Implement warning for GUI
 
+get_text()
 Twitter_Post()
