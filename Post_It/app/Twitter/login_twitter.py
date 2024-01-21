@@ -14,8 +14,8 @@ def get_twitter_auth():
     except:
         print('Error! Failed to get request token.')   
     #TODO: spin up a web server to get the oauth_token and oauth_verifier
-    verifier = input('verifier: ')
-
+    #verifier = input('verifier: ')
+    verifier = ''
     try: 
         return auth.get_access_token(verifier)
     except:
