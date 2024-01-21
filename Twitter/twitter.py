@@ -1,11 +1,7 @@
 import tweepy as TP
 import os
 from Secrets import Twitter_SECRETS as TS
-
-CK = TS.CONSUMER_KEY
-CS = TS.CONSUMER_SECRET
-AT = TS.ACCESS_TOKEN
-AS = TS.ACCESS_SECRET
+from Post_It.check_login import check_login_state
 
 def get_v1_conn(CK, CS, AT, AS) -> TP.API:
     auth = TP.OAuth1UserHandler(CK, CS)
@@ -22,7 +18,7 @@ def get_v2_conn(CK, CS, AT, AS) -> TP.Client:
 def get_text():
     os.environ['BODY'] = 'Meu texto do meu post'    
 
-def Twitter_Post():
+def post(CK, CS, AT, AS):
     client_v1 = get_v1_conn(CK, CS, AT, AS)
     client_v2 = get_v2_conn(CK, CS, AT, AS)
     media_paths = ["./img1.jpg", "./img2.jpg", "./img3.jpg", "./img4.jpg", "./img5.jpg"]
@@ -34,7 +30,14 @@ def Twitter_Post():
         media_id.append(media.media_id)
     media_id_strs = [str(id) for id in media_id]
     try: client_v2.create_tweet(text=os.getenv('BODY'), media_ids=media_id_strs) 
-    except: pass #Implement warning for GUI
+    except: pass #TODO: Implement warning for GUI
 
-get_text()
-Twitter_Post()
+def twitter_post():
+    CK = TS.CONSUMER_KEY
+    CS = TS.CONSUMER_SECRET
+    AT = TS.ACCESS_TOKEN
+    AS = TS.ACCESS_SECRET
+
+    check_login_state(AT=AT, AS=AS)
+    get_text()
+    post(CK=CK, CS=CS, AT=AT, AS=AS)
