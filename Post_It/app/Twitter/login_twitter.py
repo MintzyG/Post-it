@@ -6,8 +6,9 @@ import requests as REQ
 from flask import Flask, redirect
 
 def get_twitter_auth():
-    auth = TP.OAuthHandler(TS.CONSUMER_KEY, TS.CONSUMER_SECRET, 'https://localhost:8080/twitter_login/')
+    auth = TP.OAuthHandler(TS.CONSUMER_KEY, TS.CONSUMER_SECRET, 'https://localhost:8080/twitter_login')
     try:
+        #TODO: make redirect work
         redirect_url = auth.get_authorization_url()
         redirect(redirect_url, code=302)
         print(f'Please go to {redirect_url}.')
@@ -28,6 +29,3 @@ def twitter_login():
         api = TP.API(auth)
         #NOTE: After authentication api.auth will be a tuple with both access_token and access_secret
         #TODO: Save Token and Secret to Secrets/ in a JSON file
-
-if __name__ == "__main__":
-    main()
