@@ -17,12 +17,16 @@ def get_v2_conn(CK, CS, AT, AS) -> TP.Client:
 
 def get_text():
     os.environ['BODY'] = 'Meu texto do meu post'    
+    #TODO: Implement this on the GUI
 
 def post(CK, CS, AT, AS):
     client_v1 = get_v1_conn(CK, CS, AT, AS)
     client_v2 = get_v2_conn(CK, CS, AT, AS)
+    #TODO: Implement this on the GUI
     media_paths = ["./img1.jpg", "./img2.jpg", "./img3.jpg", "./img4.jpg", "./img5.jpg"]
     media_id = []
+    if len(media_paths) > 4:
+        raise ValueError
     for media_path in media_paths:
         print(os.getcwd())
         print(media_path)
@@ -40,4 +44,6 @@ def twitter_post():
 
     check_login_state(AT=AT, AS=AS)
     get_text()
-    post(CK=CK, CS=CS, AT=AT, AS=AS)
+    try: post(CK=CK, CS=CS, AT=AT, AS=AS) 
+    except: print(f"Images exceed the maximum limit of 4.")
+        
