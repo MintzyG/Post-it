@@ -1,1 +1,4 @@
 tweepy
+flask
+flask_restful
+requests-oauthlib

@@ -1,5 +1,5 @@
 import Twitter.twitter as TT
-
+import Twitter.login_twitter as TW
 if __name__ == "__main__":
     twitter = True
     facebook = False
@@ -9,6 +9,7 @@ if __name__ == "__main__":
 
     if  twitter:
         TT.twitter_post()
+        TW.main()
     elif facebook:
         pass
     elif instagram:
