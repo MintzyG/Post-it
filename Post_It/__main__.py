@@ -27,7 +27,7 @@ if __name__ == "__main__":
 
         if twitter:
             TT.twitter_post()
-            TL.main()
+            TL.twitter_login()
         elif facebook:
             pass
         elif instagram:

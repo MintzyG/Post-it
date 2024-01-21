@@ -22,7 +22,7 @@ def get_twitter_auth():
         print('failed to get acess token')
         return None
     
-def main():
+def twitter_login():
     auth = get_twitter_auth()
     if auth:
         api = TP.API(auth)
