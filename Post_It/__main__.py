@@ -1,4 +1,6 @@
-import Twitter.twitter as TT
+
+
+'''import Twitter.twitter as TT
 import Twitter.login_twitter as TL
 
 if __name__ == "__main__":
@@ -18,4 +20,4 @@ if __name__ == "__main__":
     elif telegram:
         pass
     elif furaffinity:
-        pass
+        pass'''
