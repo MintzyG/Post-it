@@ -23,7 +23,6 @@ def create_app():
         if request.method == 'POST':
             if request.form['twitter_login'] == 'login_with_twitter':
                 twitter = True
-                print('oi')
                 redirect_url = TL.twitter_redirect()
                 return redirect(redirect_url, 302)
             else:
@@ -44,4 +43,4 @@ def receive_twitter_tokens():
 
 
 create_app() 
-app.run(host="localhost", port=8080, debug=True)
+app.run(host="127.0.0.1", port="", debug=True)
