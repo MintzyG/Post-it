@@ -1,7 +1,7 @@
 import tweepy as TP
 import os
-from Secrets import Twitter_SECRETS as TS
-from Post_It.check_login import check_login_state
+from .Secrets import Twitter_SECRETS as TS
+from .check_twitter_login import check_login_state
 
 def get_v1_conn(CK, CS, AT, AS) -> TP.API:
     auth = TP.OAuth1UserHandler(CK, CS)

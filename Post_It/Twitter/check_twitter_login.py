@@ -5,5 +5,5 @@ def check_login_state(AT: str, AS: str):
     except:
         print('Not logged in')
         exit()
-        #TODO: Warn 
+        #TODO: Warn user in the GUI hes not logged in yet
         #TODO: Implement not logged in message
