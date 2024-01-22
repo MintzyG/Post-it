@@ -5,6 +5,7 @@ import app.Twitter.twitter as TT
 import app.Twitter.login_twitter as TL
 import tweepy as TP
 import app.Twitter.Secrets.twitter_SECRETS as TS
+from app.Twitter.check_twitter_login import check_login_state
 
 twitter = False
 facebook = False
@@ -33,8 +34,7 @@ def create_app():
 def finalize_login():
     token = request.args.get('oauth_verifier')
     access_token, access_secret = oauth1.get_access_token(token)
-    print(access_token)
-    print(access_secret)
+    check_login_state(AT=access_token, AS=access_secret)
     return redirect('/', 302)
 
 create_app() 
