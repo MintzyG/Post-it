@@ -38,13 +38,20 @@ def finalize_login():
         'ACCESS_TOKEN' : access_token,
         'ACCESS_SECRET' : access_secret
     }
-    with open('./Post_It/app/Twitter/Secrets/twitter_credentials.json', 'w') as fp:
-        json.dump(twitter_credentials, fp)
-    fp.close()
-    print(os.getcwd())
+    twitter_login_state = check_login_state()
 
-    check_login_state(AT=access_token, AS=access_secret)
+    if not twitter_login_state:
+        with open('./Post_It/app/Twitter/Secrets/twitter_credentials.json', 'w') as fp:
+            json.dump(twitter_credentials, fp)
+        fp.close()
+    
+    twitter_login_state = check_login_state()
+
     return redirect('/', 302)
+
+with open('./Post_It/app/Twitter/Secrets/twitter_credentials.json', 'w') as fp:
+    pass
+fp.close()
 
 create_app() 
 app.run(host="127.0.0.1", port="443", debug=True)
