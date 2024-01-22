@@ -1,7 +1,8 @@
 import tweepy as TP
-import os
+import os, json
 from .Secrets import twitter_SECRETS as TS
 from .check_twitter_login import check_login_state
+from ..helper_functions.check_empty_file import check_file
 
 def get_v1_conn(CK, CS, AT, AS) -> TP.API:
     auth = TP.OAuth1UserHandler(CK, CS)
@@ -37,10 +38,21 @@ def post(CK, CS, AT, AS):
     except: pass #TODO: Implement warning for GUI
 
 def twitter_post():
+    try:
+        if check_file(os.getenv('TWITTER_SECRET_JSON')):
+            with open(os.getenv('TWITTER_SECRET_JSON'), 'r') as fp:
+                data = json.load(fp)
+                AT = data['ACCESS_TOKEN']
+                AS = data['ACCESS_SECRET']
+            fp.close()
+        else:
+            raise UnboundLocalError
+    except:
+        print('Não está logado para postar')
+            
     CK = TS.CONSUMER_KEY
     CS = TS.CONSUMER_SECRET
-    AT = TS.ACCESS_TOKEN
-    AS = TS.ACCESS_SECRET
+    
     
     check_login_state(AT=AT, AS=AS)
     get_text()

@@ -1,7 +1,7 @@
 import json, os
 from ..helper_functions.check_empty_file import check_file
 
-path = './Post_It/app/Twitter/Secrets/twitter_credentials.json'
+path = os.getenv('TWITTER_SECRET_JSON')
 def check_login_state() -> bool:
     file_state = check_file(path)
 

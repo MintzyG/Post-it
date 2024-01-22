@@ -14,6 +14,8 @@ instagram = False
 telegram = False
 furaffinity = False
 
+os.environ['TWITTER_SECRET_JSON'] = './Post_It/app/Twitter/Secrets/twitter_credentials.json' 
+
 app = Flask(__name__,
             static_folder="app/static",
             template_folder="app/templates")
@@ -42,7 +44,7 @@ def finalize_login():
     twitter_login_state = check_login_state()
 
     if not twitter_login_state:
-        with open('./Post_It/app/Twitter/Secrets/twitter_credentials.json', 'w') as fp:
+        with open(os.getenv('TWITTER_SECRET_JSON'), 'w') as fp:
             json.dump(twitter_credentials, fp)
         fp.close()
     
@@ -51,11 +53,12 @@ def finalize_login():
     return redirect('/', 302)
 
 try:
-    with open('./Post_It/app/Twitter/Secrets/twitter_credentials.json', 'x') as fp:
+    with open(os.getenv('TWITTER_SECRET_JSON'), 'x') as fp:
         pass
     fp.close()
 except:
     pass    
+
 
 create_app() 
 app.run(host="127.0.0.1", port="443", debug=True)
