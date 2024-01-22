@@ -1,11 +1,12 @@
 from flask import Flask, request, render_template, redirect
 import os, json
 
-import app.Twitter.twitter as TT
+import app.Twitter.twitter_post as TT
 import app.Twitter.login_twitter as TL
 import tweepy as TP
 import app.Twitter.Secrets.twitter_SECRETS as TS
 from app.Twitter.check_twitter_login import check_login_state
+from app.helper_functions.check_empty_file import check_file
 
 twitter = False
 facebook = False
@@ -49,9 +50,12 @@ def finalize_login():
 
     return redirect('/', 302)
 
-with open('./Post_It/app/Twitter/Secrets/twitter_credentials.json', 'w') as fp:
-    pass
-fp.close()
+try:
+    with open('./Post_It/app/Twitter/Secrets/twitter_credentials.json', 'x') as fp:
+        pass
+    fp.close()
+except:
+    pass    
 
 create_app() 
 app.run(host="127.0.0.1", port="443", debug=True)

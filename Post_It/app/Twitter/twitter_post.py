@@ -41,7 +41,7 @@ def twitter_post():
     CS = TS.CONSUMER_SECRET
     AT = TS.ACCESS_TOKEN
     AS = TS.ACCESS_SECRET
-
+    
     check_login_state(AT=AT, AS=AS)
     get_text()
     try: post(CK=CK, CS=CS, AT=AT, AS=AS) 

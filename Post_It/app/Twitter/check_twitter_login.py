@@ -1,13 +1,12 @@
 import json, os
+from ..helper_functions.check_empty_file import check_file
 
+path = './Post_It/app/Twitter/Secrets/twitter_credentials.json'
 def check_login_state() -> bool:
-    check_file = os.stat('./Post_It/app/Twitter/Secrets/twitter_credentials.json').st_size
+    file_state = check_file(path)
 
-    if(check_file == 0):
-        print("The file is empty.")
-    else:
-        print("The file is not empty.")
-        with open('./Post_It/app/Twitter/Secrets/twitter_credentials.json', 'r') as fp:
+    if (file_state):
+        with open(path, 'r') as fp:
             twitter_credentials = json.load(fp)
 
     try: 
