@@ -16,7 +16,7 @@ def get_v2_conn(CK, CS, AT, AS) -> TP.Client:
     return client
 
 def get_text():
-    #TODO: Implement this on the GUI
+    #TODO: Implement this on the GUI    
     os.environ['BODY'] = 'Meu texto do meu post'    
 
 def post(CK, CS, AT, AS):

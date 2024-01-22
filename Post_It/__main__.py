@@ -4,14 +4,13 @@ import os
 import app.Twitter.twitter as TT
 import app.Twitter.login_twitter as TL
 import tweepy as TP
+import app.Twitter.Secrets.twitter_SECRETS as TS
 
 twitter = False
 facebook = False
 instagram = False
 telegram = False
 furaffinity = False
-
-redirect_url = ''
 
 app = Flask(__name__,
             static_folder="app/static",
@@ -22,25 +21,20 @@ def create_app():
     def home():
         if request.method == 'POST':
             if request.form['twitter_login'] == 'login_with_twitter':
-                twitter = True
-                redirect_url = TL.twitter_redirect()
+                global redirect_url
+                redirect_url = TL.handle_user()
+                print(redirect_url)
                 return redirect(redirect_url, 302)
-            else:
-                pass # unkno
         return render_template('index.html')
     return app
 
 @app.route('/twitter_login', methods=['GET', 'POST'])
-def receive_twitter_tokens():
-    auth = TL.apply_verifier(request.form['oauth_verifier'])
-    if auth:
-        api = TP.API(auth)
-        print(api.auth)
-        #NOTE: After authentication api.auth will be a tuple with both access_token and access_secret
-        #TODO: Save Token and Secret to Secrets/ in a JSON file
+def finalize_login():
+    url = request.url
+    print(url)
+    access_token = TP.OAuth2UserHandler.fetch_token(url)
+    print(access_token)
     return redirect('/', 302)
 
-
-
 create_app() 
-app.run(host="127.0.0.1", port="", debug=True)
+app.run(host="127.0.0.1", port="443", debug=True)

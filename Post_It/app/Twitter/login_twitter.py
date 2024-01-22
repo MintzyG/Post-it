@@ -1,29 +1,11 @@
-import os 
-print(os.getcwd())
+import tweepy as TP
 from .Secrets import twitter_SECRETS as TS
-import tweepy as TP 
-import requests as REQ
-from flask import Flask, redirect
 
-def apply_verifier(code: str):
-    auth = TP.OAuthHandler(TS.CONSUMER_KEY, TS.CONSUMER_SECRET, 'https://127.0.0.1:5000/twitter_login')
-    #TODO: spin up a web server to get the oauth_token and oauth_verifier
-    #verifier = input('verifier: ')
-    verifier = code
-    try: 
-        return auth.get_access_token(verifier)
-    except:
-        print('failed to get acess token')
-        return None
-    
-def twitter_redirect():
-    auth = TP.OAuthHandler(TS.CONSUMER_KEY, TS.CONSUMER_SECRET, 'https://127.0.0.1:5000/twitter_login')
-    try:
-        #TODO: make redirect work
-        redirect_url = auth.get_authorization_url()
-        print(redirect_url)
-        return redirect_url
-    except:
-        print('Error! Failed to get request token.')   
-    
-   
+def handle_user():
+    oauth2_user_handler = TP.OAuth2UserHandler(
+        client_id=TS.CLIENT_ID,
+        redirect_uri=TS.REDIRECT_URI,
+        scope=['tweet.read', 'tweet.write', 'users.read']
+    )
+
+    return oauth2_user_handler.get_authorization_url()
