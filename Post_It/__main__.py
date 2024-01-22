@@ -21,19 +21,20 @@ def create_app():
     def home():
         if request.method == 'POST':
             if request.form['twitter_login'] == 'login_with_twitter':
-                global redirect_url
-                redirect_url = TL.handle_user()
-                print(redirect_url)
-                return redirect(redirect_url, 302)
+                global authorization_url, oauth1
+                tuple = TL.handle_user()
+                authorization_url = tuple[0]
+                oauth1 = tuple[1]
+                return redirect(authorization_url, 302)
         return render_template('index.html')
     return app
 
 @app.route('/twitter_login', methods=['GET', 'POST'])
 def finalize_login():
-    url = request.url
-    print(url)
-    access_token = TP.OAuth2UserHandler.fetch_token(url)
+    token = request.args.get('oauth_verifier')
+    access_token, access_secret = oauth1.get_access_token(token)
     print(access_token)
+    print(access_secret)
     return redirect('/', 302)
 
 create_app() 
