@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template, redirect
-import os
+import os, json
 
 import app.Twitter.twitter as TT
 import app.Twitter.login_twitter as TL
@@ -34,6 +34,15 @@ def create_app():
 def finalize_login():
     token = request.args.get('oauth_verifier')
     access_token, access_secret = oauth1.get_access_token(token)
+    twitter_credentials = {
+        'ACCESS_TOKEN' : access_token,
+        'ACCESS_SECRET' : access_secret
+    }
+    with open('./Post_It/app/Twitter/Secrets/twitter_credentials.json', 'w') as fp:
+        json.dump(twitter_credentials, fp)
+    fp.close()
+    print(os.getcwd())
+
     check_login_state(AT=access_token, AS=access_secret)
     return redirect('/', 302)
 
