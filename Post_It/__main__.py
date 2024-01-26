@@ -1,12 +1,17 @@
 from flask import Flask, request, render_template, redirect
+import tweepy as TP
 import os, json
 
 import app.Twitter.twitter_post as TT
 import app.Twitter.login_twitter as TL
-import tweepy as TP
+
 import app.Twitter.Secrets.twitter_SECRETS as TS
+
 from app.Twitter.check_twitter_login import check_login_state
+
 from app.helper_functions.check_empty_file import check_file
+
+from app.select_images import select_images
 
 twitter = False
 facebook = False
@@ -23,13 +28,21 @@ app = Flask(__name__,
 def create_app():
     @app.route('/', methods=['GET', 'POST'])
     def home():
+        print(request.method)
         if request.method == 'POST':
-            if request.form['twitter_login'] == 'login_with_twitter':
+            if request.form.get('twitter_login') == 'login_with_twitter':
                 global authorization_url, oauth1
                 tuple = TL.handle_user()
                 authorization_url = tuple[0]
                 oauth1 = tuple[1]
                 return redirect(authorization_url, 302)
+        
+            elif request.form.get('select_image') == 'select_image':
+                try:
+                    select_images();
+                except:
+                    print('Deu não')
+
         return render_template('index.html')
     return app
 
@@ -61,4 +74,5 @@ except:
 
 
 create_app() 
-app.run(host="127.0.0.1", port="443", debug=True)
+if __name__ == "__main__":
+    app.run(host="127.0.0.1", port="443", debug=True)

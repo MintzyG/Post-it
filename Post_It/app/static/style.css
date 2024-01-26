@@ -2,3 +2,42 @@ html{
     height: 100%;
     background-color: rgb(32, 209, 171);
 }
+
+body{
+    margin: 0px;
+}
+
+header{
+    background-color: rgb(32, 209, 171);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main_buttons{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+.main_buttons form input{
+    
+}
+
+#logins{
+    position: relative;
+    background-color: rgb(32, 209, 171);
+}
+#logins form input{
+    position: absolute;
+    right: 0;
+}
+
+footer{
+    background-color: rgb(32, 209, 171);
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    bottom: 0;
+}
