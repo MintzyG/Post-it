@@ -25,6 +25,7 @@ app = Flask(__name__,
             static_folder="app/static",
             template_folder="app/templates")
 
+#TODO: make a post button
 def create_app():
     @app.route('/', methods=['GET', 'POST'])
     def home():
@@ -38,10 +39,19 @@ def create_app():
                 return redirect(authorization_url, 302)
         
             elif request.form.get('select_image') == 'select_image':
+                images = select_images()
                 try:
-                    select_images();
+                    if os.path.isfile('./Post_It/temp/images.json'):
+                        os.remove('./Post_It/temp/images.json')
+                    with open('./Post_It/temp/images.json', 'w') as fp:
+                        print(images)
+                        json.dump(images, fp)
+                    fp.close()
                 except:
                     print('Deu não')
+            
+            elif request.form.get('post') == 'post':
+                TT.twitter_post()
 
         return render_template('index.html')
     return app

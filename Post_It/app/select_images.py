@@ -3,8 +3,10 @@ from tkinter.filedialog import askopenfilenames
 import tkinter as tk
 
 Selected_images_path : list = [] 
+Paths = { 'images':[] }
 
-def select_images() -> list:
+
+def select_images() -> dict:
     window = tk.Tk()
     window.wm_attributes('-topmost', True)
     window.withdraw()
@@ -16,6 +18,10 @@ def select_images() -> list:
             Selected_images_path.append(Path(path_image))
         for x in range(len(Selected_images_path)):
             print(Selected_images_path[x])
-        return Selected_images_path
+
+        for picture in Selected_images_path:
+            Paths['images'].append(str(picture))
+        print(Paths['images'])
+        return Paths
     else:
         print("No file selected")
