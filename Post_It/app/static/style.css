@@ -21,16 +21,18 @@ header{
     align-items: center;
     width: 100%;
 }
-.main_buttons form input{
-    
+.main_buttons form button{
+    border-radius: 20px;
 }
 
 #logins{
     position: relative;
     background-color: rgb(32, 209, 171);
 }
-#logins form input{
+#logins form button{
     position: absolute;
+    height: 50px;
+    border-radius: 50%;
     right: 0;
 }
 
