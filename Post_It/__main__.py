@@ -82,6 +82,8 @@ try:
 except:
     pass    
 
+if os.path.isfile('./Post_It/temp/images.json'):
+    os.remove('./Post_It/temp/images.json')
 
 create_app() 
 if __name__ == "__main__":
