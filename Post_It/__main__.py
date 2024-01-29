@@ -59,7 +59,17 @@ def process_form():
             texto = request.form.get('input_text')
             os.environ['BODY'] = texto
             print(f'That`s your text: {str(texto)}')
-            TT.twitter_post()
+            try:
+                TT.twitter_post()
+            except:
+                print('Não foi postado')
+                return render_template('index.html')
+            try:
+                del os.environ['BODY']
+                os.remove('./Post_It/temp/images.json')       
+            except:
+                print('File already deleted')
+
     return render_template('index.html')
 
 @app.route('/twitter_login', methods=['GET', 'POST'])
