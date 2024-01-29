@@ -27,37 +27,44 @@ app = Flask(__name__,
 
 #TODO: make a post button
 def create_app():
-    @app.route('/', methods=['GET', 'POST'])
+    @app.route('/')
     def home():
-        print(request.method)
-        if request.method == 'POST':
-            if request.form.get('twitter_login') == 'login_with_twitter':
-                global authorization_url, oauth1
-                tuple = TL.handle_user()
-                authorization_url = tuple[0]
-                oauth1 = tuple[1]
-                return redirect(authorization_url, 302)
-        
-            elif request.form.get('select_image') == 'select_image':
-                images = select_images()
-                try:
-                    if os.path.isfile('./Post_It/temp/images.json'):
-                        os.remove('./Post_It/temp/images.json')
-                    with open('./Post_It/temp/images.json', 'w') as fp:
-                        print(images)
-                        json.dump(images, fp)
-                    fp.close()
-                except:
-                    print('Deu não')
-            
-            elif request.form.get('post') == 'post':
-                TT.twitter_post()
-
         return render_template('index.html')
     return app
 
+@app.route('/', methods=['POST'])
+def process_form():
+    print(request.method)
+    if request.method == 'POST':
+        if request.form.get('twitter_login') == 'login_with_twitter':
+            global authorization_url, oauth1
+            tuple = TL.handle_user()
+            authorization_url = tuple[0]
+            oauth1 = tuple[1]
+            return redirect(authorization_url, 302)
+    
+        elif request.form.get('select_image') == 'select_image':
+            images = select_images()
+            try:
+                if os.path.isfile('./Post_It/temp/images.json'):
+                    os.remove('./Post_It/temp/images.json')
+                with open('./Post_It/temp/images.json', 'w') as fp:
+                    print(images)
+                    json.dump(images, fp)
+                fp.close()
+            except:
+                print('Deu não')
+        
+        elif request.form.get('post') == 'post':
+            texto = request.form.get('input_text')
+            os.environ['BODY'] = texto
+            print(f'That`s your text: {str(texto)}')
+            TT.twitter_post()
+    return render_template('index.html')
+
 @app.route('/twitter_login', methods=['GET', 'POST'])
 def finalize_login():
+    print(request.method)
     token = request.args.get('oauth_verifier')
     access_token, access_secret = oauth1.get_access_token(token)
     twitter_credentials = {

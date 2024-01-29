@@ -16,10 +16,6 @@ def get_v2_conn(CK, CS, AT, AS) -> TP.Client:
     )
     return client
 
-def get_text():
-    #TODO: Implement this on the GUI    
-    os.environ['BODY'] = 'Meu texto do meu post'    
-
 def post(CK, CS, AT, AS):
     media_paths = []
     media_id = []
@@ -63,7 +59,6 @@ def twitter_post():
     CS = TS.CONSUMER_SECRET
     
     check_login_state()
-    get_text()
     print('everything ready to post!')
     try: post(CK=CK, CS=CS, AT=AT, AS=AS) 
     except: print(f"Images exceed the maximum limit of 4.")

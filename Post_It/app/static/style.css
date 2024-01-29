@@ -15,14 +15,15 @@ header{
     align-items: center;
 }
 
-.main_buttons{
+.main_body{
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
 }
-.main_buttons form button{
+.main_body form button{
     border-radius: 20px;
+    margin: 5px;
 }
 
 #logins{
