@@ -5,6 +5,7 @@ html{
 
 body{
     margin: 0px;
+    height: 100%;
 }
 
 header{
@@ -26,19 +27,41 @@ header{
     margin: 5px;
 }
 
-#social_media_buttons{
-    float: right;
+#social_media_buttons_parent{
+    position: absolute;
+    height: 100%;
+    width: 10%;
+    top: 0;
+    right: 0;
     display: flex;
     flex-direction: column;
+    direction: rtl;
     align-items: center;
-    margin-right: 30px;
-    flex-flow: column wrap-reverse;
+    margin-right: 6px;
+}
+#social_media_buttons{
+    margin: auto;
+    margin-right: 0;
+    display: flex;
+    flex-direction: column;
+    grid-row-gap: 10px;
 }
 #rows{
     display: flex;
     flex-direction: row;
-    margin-top: 15%;
-    gap: 50%;
+    justify-content: space-between;
+    gap: 6px;
+}
+#rows form button{
+    width: 100%;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+}
+.btn_small{
+    margin-top: 30%;
+    height: 30px!important;
+    width: 30px!important;
 }
 
 footer{
