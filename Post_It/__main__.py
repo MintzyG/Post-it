@@ -2,15 +2,11 @@ from flask import Flask, request, render_template, redirect
 import tweepy as TP
 import os, json
 
-import app.Twitter.twitter_post as TT
-import app.Twitter.login_twitter as TL
-
 import app.Twitter.Secrets.twitter_SECRETS as TS
-
+import app.Twitter.login_twitter as TL
+import app.Twitter.twitter_post as TT
 from app.Twitter.check_twitter_login import check_login_state
-
 from app.helper_functions.check_empty_file import check_file
-
 from app.select_images import select_images
 
 twitter = False
@@ -36,7 +32,7 @@ def create_app():
 def process_form():
     print(request.method)
     if request.method == 'POST':
-        if request.form.get('twitter_login') == 'login_with_twitter':
+        if request.form.get('twitter_login') == 'twitter_login':
             global authorization_url, oauth1
             tuple = TL.handle_user()
             authorization_url = tuple[0]
@@ -56,6 +52,7 @@ def process_form():
                 print('Deu não')
         
         elif request.form.get('post') == 'post':
+            #Generalize posting
             texto = request.form.get('input_text')
             os.environ['BODY'] = texto
             print(f'That`s your text: {str(texto)}')

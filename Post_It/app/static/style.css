@@ -26,15 +26,19 @@ header{
     margin: 5px;
 }
 
-#logins{
-    position: relative;
-    background-color: rgb(32, 209, 171);
+#social_media_buttons{
+    float: right;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 30px;
+    flex-flow: column wrap-reverse;
 }
-#logins form button{
-    position: absolute;
-    height: 50px;
-    border-radius: 50%;
-    right: 0;
+#rows{
+    display: flex;
+    flex-direction: row;
+    margin-top: 15%;
+    gap: 50%;
 }
 
 footer{
