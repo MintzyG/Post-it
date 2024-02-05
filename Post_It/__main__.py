@@ -72,7 +72,7 @@ def Button_handler():
     elif request.form.get('furaffinity_toggle') == 'furaffinity_toggle':
         furaffinity = not furaffinity
         print(f'furaffinity state {furaffinity}')
-        handles['furaffinity_toggle'] = twitter
+        handles['furaffinity_toggle'] = furaffinity
     elif request.form.get('telegram_toggle') == 'telegram_toggle':
         telegram = not telegram
         print(f'telegram state {telegram}')
