@@ -24,14 +24,13 @@ def create_app():
 @app.route('/', methods=['POST'])
 def process_form():
     print(request.method)
-    global redirect_url
-    global redirect_user
+    global redirect_url, redirect_user,check_toggle
     if request.method == 'POST':
         Button_handler()       
         if redirect_user:
             redirect_user = False
             return redirect(redirect_url, 302)
-    return render_template('index.html')
+    return render_template('index.html', check_toggle = check_toggle )
 
 @app.route('/twitter_login', methods=['GET', 'POST'])
 def finalize_login():
@@ -54,26 +53,29 @@ def finalize_login():
     return redirect('/', 302)
 
 def Button_handler():
-    global twitter
-    global facebook    
-    global instagram  
-    global telegram   
-    global furaffinity 
-    global redirect_user
+    global twitter, facebook, instagram, telegram, furaffinity 
+    global redirect_user, redirect_url
+    global check_toggle
+
     if request.form.get('twitter_toggle') == 'twitter_toggle':
         twitter = not twitter
+        check_toggle['twitter_toggle'] = twitter
         print(f'Twitter state {twitter}')
     elif request.form.get('instagram_toggle') == 'instagram_toggle':
         instagram = not instagram
+        check_toggle['instagram_toggle'] = instagram
         print(f'instagram state {instagram}')
     elif request.form.get('facebook_toggle') == 'facebook_toggle':
         facebook = not facebook
+        check_toggle['facebook_toggle'] = facebook
         print(f'facebook state {facebook}')
     elif request.form.get('furaffinity_toggle') == 'furaffinity_toggle':
         furaffinity = not furaffinity
+        check_toggle['furaffinity_toggle'] = furaffinity
         print(f'furaffinity state {furaffinity}')
     elif request.form.get('telegram_toggle') == 'telegram_toggle':
         telegram = not telegram
+        check_toggle['telegram_toggle'] = telegram
         print(f'telegram state {telegram}')
 
     elif request.form.get('twitter_login') == 'twitter_login' and twitter:
@@ -121,21 +123,20 @@ def Button_handler():
             print('File already deleted')
 
 def init():
-    global twitter
-    global facebook    
-    global instagram  
-    global telegram   
-    global furaffinity 
-    global redirect_user
-    global redirect_url
+    global twitter, instagram, facebook, furaffinity, telegram
+    global redirect_user, redirect_url
+    global check_toggle
 
-    twitter = False
-    facebook = False
-    instagram = False
-    telegram = False
-    furaffinity = False
+    twitter, instagram, facebook, furaffinity, telegram = False, False, False, False, False
     redirect_user = False
     redirect_url  = None
+    check_toggle = {
+        "twitter_toggle": False,
+        "instagram_toggle": False,
+        "facebook_toggle": False,
+        "furaffinity_toggle": False,
+        "telegram_toggle": False
+    }
 
 try:
     with open(os.getenv('TWITTER_SECRET_JSON'), 'x') as fp:

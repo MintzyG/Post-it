@@ -27,7 +27,11 @@
         <div id="social_media_buttons">
             <div id="rows">
                 <form method="post">
-                    <button type="submit" name="twitter_toggle" value="twitter_toggle"> TT </button>
+                    {% if check_toggle['twitter_toggle'] %}
+                        <button type="submit" style="color: green;" name="twitter_toggle" value="twitter_toggle"> TT </button>
+                    {% else %}
+                        <button type="submit" name="twitter_toggle" value="twitter_toggle"> TT </button>
+                    {% endif %}
                 </form>
                 <form method="post">
                     <button type="submit" class="btn_small" name="twitter_login" value="twitter_login"> TTL </button>
