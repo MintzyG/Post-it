@@ -134,11 +134,11 @@ def Button_handler():
 def init():
     global twitter, facebook, instagram, telegram, furaffinity, redirect_user, redirect_url, handles 
     handles = {
-        'twitter_toggle': bool,
-        'instagram_toggle': bool,
-        'facebook_toggle': bool,
-        'furaffinity_toggle': bool,
-        'telegram_toggle': bool
+        'twitter_toggle': False,
+        'instagram_toggle': False,
+        'facebook_toggle': False,
+        'furaffinity_toggle': False,
+        'telegram_toggle': False
     }
 
     twitter, facebook, instagram, telegram, furaffinity = False, False, False, False, False
