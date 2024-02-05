@@ -24,10 +24,7 @@ def create_app():
 @app.route('/', methods=['POST'])
 def process_form():
     print(request.method)
-    global redirect_url
-    global redirect_user
-    global handles
-
+    global redirect_url, redirect_user, handles
     if request.method == 'POST':
         Button_handler()       
         if redirect_user:
@@ -55,20 +52,11 @@ def finalize_login():
         with open(os.getenv('TWITTER_SECRET_JSON'), 'w') as fp:
             json.dump(twitter_credentials, fp)
         fp.close()
-    
     twitter_login_state = check_login_state()
-
     return redirect('/', 302)
 
 def Button_handler():
-    global twitter
-    global facebook    
-    global instagram  
-    global telegram   
-    global furaffinity 
-    global redirect_user
-    global handles
-
+    global twitter, facebook, instagram, telegram, furaffinity, redirect_user, handles
     if request.form.get('twitter_toggle') == 'twitter_toggle':
         twitter = not twitter
         print(f'Twitter state {twitter}')
@@ -144,15 +132,7 @@ def Button_handler():
             print('File already deleted')
 
 def init():
-    global twitter
-    global facebook    
-    global instagram  
-    global telegram   
-    global furaffinity 
-    global redirect_user
-    global redirect_url
-    global handles 
-
+    global twitter, facebook, instagram, telegram, furaffinity, redirect_user, redirect_url, handles 
     handles = {
         'twitter_toggle': bool,
         'instagram_toggle': bool,
@@ -161,11 +141,7 @@ def init():
         'telegram_toggle': bool
     }
 
-    twitter = False
-    facebook = False
-    instagram = False
-    telegram = False
-    furaffinity = False
+    twitter, facebook, instagram, telegram, furaffinit = False, False, False, False, False
     redirect_user = False
     redirect_url  = None
 
