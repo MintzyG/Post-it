@@ -141,7 +141,7 @@ def init():
         'telegram_toggle': bool
     }
 
-    twitter, facebook, instagram, telegram, furaffinit = False, False, False, False, False
+    twitter, facebook, instagram, telegram, furaffinity = False, False, False, False, False
     redirect_user = False
     redirect_url  = None
 
