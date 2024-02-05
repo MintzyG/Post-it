@@ -150,7 +150,12 @@ try:
         pass
     fp.close()
 except:
-    pass    
+    pass   
+
+try:
+    os.makedirs('./Post_It/temp')
+except:
+    print('dir already exists')
 
 if os.path.isfile('./Post_It/temp/images.json'):
     os.remove('./Post_It/temp/images.json')
