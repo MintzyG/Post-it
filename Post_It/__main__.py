@@ -71,27 +71,22 @@ def Button_handler():
 
     if request.form.get('twitter_toggle') == 'twitter_toggle':
         twitter = not twitter
-        check_toggle['twitter_toggle'] = twitter
         print(f'Twitter state {twitter}')
         handles['twitter_toggle'] = twitter
     elif request.form.get('instagram_toggle') == 'instagram_toggle':
         instagram = not instagram
-        check_toggle['instagram_toggle'] = instagram
         print(f'instagram state {instagram}')
         handles['instagram_toggle'] = instagram
     elif request.form.get('facebook_toggle') == 'facebook_toggle':
         facebook = not facebook
-        check_toggle['facebook_toggle'] = facebook
         print(f'facebook state {facebook}')
         handles['facebook_toggle'] = facebook
     elif request.form.get('furaffinity_toggle') == 'furaffinity_toggle':
         furaffinity = not furaffinity
-        check_toggle['furaffinity_toggle'] = furaffinity
         print(f'furaffinity state {furaffinity}')
         handles['furaffinity_toggle'] = twitter
     elif request.form.get('telegram_toggle') == 'telegram_toggle':
         telegram = not telegram
-        check_toggle['telegram_toggle'] = telegram
         print(f'telegram state {telegram}')
         handles['telegram_toggle'] = telegram
 
@@ -173,13 +168,6 @@ def init():
     furaffinity = False
     redirect_user = False
     redirect_url  = None
-    check_toggle = {
-        "twitter_toggle": False,
-        "instagram_toggle": False,
-        "facebook_toggle": False,
-        "furaffinity_toggle": False,
-        "telegram_toggle": False
-    }
 
 try:
     with open(os.getenv('TWITTER_SECRET_JSON'), 'x') as fp:
