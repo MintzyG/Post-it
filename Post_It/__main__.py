@@ -26,12 +26,19 @@ def process_form():
     print(request.method)
     global redirect_url
     global redirect_user
+    global handles
+
     if request.method == 'POST':
         Button_handler()       
         if redirect_user:
             redirect_user = False
             return redirect(redirect_url, 302)
     return render_template('index.html')
+
+@app.context_processor
+def inject_dictionary():
+    global handles
+    return dict(handles=handles)
 
 @app.route('/twitter_login', methods=['GET', 'POST'])
 def finalize_login():
@@ -60,21 +67,28 @@ def Button_handler():
     global telegram   
     global furaffinity 
     global redirect_user
+    global handles
+
     if request.form.get('twitter_toggle') == 'twitter_toggle':
         twitter = not twitter
         print(f'Twitter state {twitter}')
+        handles['twitter_toggle'] = twitter
     elif request.form.get('instagram_toggle') == 'instagram_toggle':
         instagram = not instagram
         print(f'instagram state {instagram}')
+        handles['instagram_toggle'] = instagram
     elif request.form.get('facebook_toggle') == 'facebook_toggle':
         facebook = not facebook
         print(f'facebook state {facebook}')
+        handles['facebook_toggle'] = facebook
     elif request.form.get('furaffinity_toggle') == 'furaffinity_toggle':
         furaffinity = not furaffinity
         print(f'furaffinity state {furaffinity}')
+        handles['furaffinity_toggle'] = twitter
     elif request.form.get('telegram_toggle') == 'telegram_toggle':
         telegram = not telegram
         print(f'telegram state {telegram}')
+        handles['telegram_toggle'] = telegram
 
     elif request.form.get('twitter_login') == 'twitter_login' and twitter:
         global redirect_url, oauth1_twitter
@@ -110,7 +124,16 @@ def Button_handler():
         os.environ['BODY'] = texto
         print(f'That`s your text: {str(texto)}')
         try:
-            TT.twitter_post()
+            if handles['twitter_toggle']:
+                TT.twitter_post()
+            if handles['instagram_toggle']:
+                pass
+            if handles['facebook_toggle']:
+                pass
+            if handles['furaffinity_toggle']:
+                pass
+            if handles['telegram_toggle']:
+                pass
         except:
             print('Não foi postado')
             return render_template('index.html')
@@ -128,6 +151,15 @@ def init():
     global furaffinity 
     global redirect_user
     global redirect_url
+    global handles 
+
+    handles = {
+        'twitter_toggle': bool,
+        'instagram_toggle': bool,
+        'facebook_toggle': bool,
+        'furaffinity_toggle': bool,
+        'telegram_toggle': bool
+    }
 
     twitter = False
     facebook = False
