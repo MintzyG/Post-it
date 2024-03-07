@@ -97,9 +97,9 @@ def Button_handler():
     elif request.form.get('select_image') == 'select_image':
         images = select_images()
         try:
-            if os.path.isfile('./Post_It/temp/images.json'):
-                os.remove('./Post_It/temp/images.json')
-            with open('./Post_It/temp/images.json', 'w') as fp:
+            if os.path.isfile('./temp/images.json'):
+                os.remove('./temp/images.json')
+            with open('./temp/images.json', 'w') as fp:
                 print(images)
                 json.dump(images, fp)
             fp.close()
@@ -127,12 +127,12 @@ def Button_handler():
             return render_template('index.html')
         try:
             del os.environ['BODY']
-            os.remove('./Post_It/temp/images.json')       
+            os.remove('./temp/images.json')       
         except:
             print('File already deleted')
 
 def init():
-    global twitter, facebook, instagram, telegram, furaffinity, redirect_user, redirect_url, handles 
+    global twitter, instagram, facebook, furaffinity, telegram, redirect_user, redirect_url, handles 
     handles = {
         'twitter_toggle': False,
         'instagram_toggle': False,
@@ -141,7 +141,7 @@ def init():
         'telegram_toggle': False
     }
 
-    twitter, facebook, instagram, telegram, furaffinity = False, False, False, False, False
+    twitter, instagram, facebook, furaffinity, telegram = False, False, False, False, False
     redirect_user = False
     redirect_url  = None
 
@@ -153,12 +153,12 @@ except:
     pass   
 
 try:
-    os.makedirs('./Post_It/temp')
+    os.makedirs('./temp')
 except:
     print('dir already exists')
 
-if os.path.isfile('./Post_It/temp/images.json'):
-    os.remove('./Post_It/temp/images.json')
+if os.path.isfile('./temp/images.json'):
+    os.remove('./temp/images.json')
 
 init()
 create_app() 
