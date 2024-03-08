@@ -2,12 +2,12 @@ from flask import Flask, request, render_template, redirect
 import tweepy as TP
 import os, json
 
-import app.Twitter.Secrets.twitter_SECRETS as TS
-import app.Twitter.login_twitter as TL
-import app.Twitter.twitter_post as TT
-from app.Twitter.check_twitter_login import check_login_state
-from app.helper_functions.check_empty_file import check_file
-from app.select_images import select_images
+import secrets.twitter_api_credentials as TS
+import app.plataforms.twitter.login_twitter as TL
+import app.plataforms.twitter.twitter_post as TT
+from app.plataforms.twitter.check_twitter_login import check_login_state
+from app.helpers.check_empty_file import check_file
+from app.helpers.select_images import select_images
 
 os.environ['TWITTER_SECRET_JSON'] = './Post_It/app/Twitter/Secrets/twitter_credentials.json' 
 
@@ -155,7 +155,12 @@ except:
 try:
     os.makedirs('./temp')
 except:
-    print('dir already exists')
+    print('temp already exists')
+
+try:
+    os.makedirs('./secrets')
+except:
+    print('secrets already exists')
 
 if os.path.isfile('./temp/images.json'):
     os.remove('./temp/images.json')

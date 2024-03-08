@@ -1,8 +1,12 @@
 import tweepy as TP
-import os, json
-from .Secrets import twitter_SECRETS as TS
+import os, sys, json
+
 from .check_twitter_login import check_login_state
-from ..helper_functions.check_empty_file import check_file
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+
+from secrets import twitter_api_credentials as TS
+from helpers.check_empty_file import check_file
 
 def get_v1_conn(CK, CS, AT, AS) -> TP.API:
     auth = TP.OAuth1UserHandler(CK, CS)

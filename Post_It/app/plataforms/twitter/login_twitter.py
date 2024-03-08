@@ -1,5 +1,10 @@
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+from secrets import twitter_api_credentials as TS
+
 import tweepy as TP
-from .Secrets import twitter_SECRETS as TS
 
 def handle_user():
     oauth1_user_handler = TP.OAuth1UserHandler(

@@ -1,5 +1,8 @@
-import json, os
-from ..helper_functions.check_empty_file import check_file
+import json, os, sys
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+
+from helpers.check_empty_file import check_file
 
 path = os.getenv('TWITTER_SECRET_JSON')
 def check_login_state() -> bool:

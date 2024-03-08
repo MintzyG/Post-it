@@ -10,11 +10,11 @@
         name = "Post-It";
         packages = with pkgs; [
           python310
-	  python310Packages.tweepy
-	  python310Packages.flask
-	  pkgs.python310Packages.tkinter
-	  python310Packages.flask-restful
-	  python310Packages.requests-oauthlib
+	        python310Packages.tweepy
+	        python310Packages.flask
+	        pkgs.python310Packages.tkinter
+	        python310Packages.flask-restful
+	        python310Packages.requests-oauthlib
         ];
       };
   };
