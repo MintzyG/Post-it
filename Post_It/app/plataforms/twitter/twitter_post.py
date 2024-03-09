@@ -5,7 +5,7 @@ from .check_twitter_login import check_login_state
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
-from secrets import twitter_api_credentials as TS
+from Secrets import twitter_api_credentials as TS
 from helpers.check_empty_file import check_file
 
 def get_v1_conn(CK, CS, AT, AS) -> TP.API:
@@ -28,13 +28,14 @@ def post(CK, CS, AT, AS):
     client_v2 = get_v2_conn(CK, CS, AT, AS)
     
     #TODO: Implement this on the GUI
-    with open('./Post_It/temp/images.json', "r") as fp:
+    with open('./Post_It/app/temp/images.json', "r") as fp:
         paths = json.load(fp)
-
+    
+    print("Essas são as imagens a serem postadas:")
     for pictures in paths['images']:
         media_paths.append(pictures)
         print(pictures)
-    
+
     if len(media_paths) > 4:
         raise ValueError
     
@@ -54,6 +55,7 @@ def twitter_post():
                 AT = data['ACCESS_TOKEN']
                 AS = data['ACCESS_SECRET']
             fp.close()
+            print("API está logada")
         else:
             raise UnboundLocalError
     except:
@@ -64,6 +66,6 @@ def twitter_post():
     
     check_login_state()
     print('everything ready to post!')
-    try: post(CK=CK, CS=CS, AT=AT, AS=AS) 
+    try: post(CK=CK, CS=CS, AT=AT, AS=AS); print("twitte feito")
     except: print(f"Images exceed the maximum limit of 4.")
         

@@ -5,6 +5,7 @@
 
 images.json
 [Ss]ecrets/
+twitter_login.json
 
 # User-specific files
 *.rsuser

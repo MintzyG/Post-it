@@ -2,18 +2,18 @@ from flask import Flask, request, render_template, redirect
 import tweepy as TP
 import os, json
 
-import secrets.twitter_api_credentials as TS
+import Secrets.twitter_api_credentials as TS
 import app.plataforms.twitter.login_twitter as TL
 import app.plataforms.twitter.twitter_post as TT
 from app.plataforms.twitter.check_twitter_login import check_login_state
 from app.helpers.check_empty_file import check_file
 from app.helpers.select_images import select_images
 
-os.environ['TWITTER_SECRET_JSON'] = './Post_It/app/Twitter/Secrets/twitter_credentials.json' 
+os.environ['TWITTER_SECRET_JSON'] = './Post_It/app/plataforms/twitter/twitter_login.json' 
 
 app = Flask(__name__,
-            static_folder="app/static",
-            template_folder="app/templates")
+            static_folder="app/web_interface/static",
+            template_folder="app/web_interface/templates")
 
 def create_app():
     @app.route('/')
@@ -37,23 +37,8 @@ def inject_dictionary():
     global handles
     return dict(handles=handles)
 
-@app.route('/twitter_login', methods=['GET', 'POST'])
-def finalize_login():
-    print(request.method)
-    token = request.args.get('oauth_verifier')
-    access_token, access_secret = oauth1_twitter.get_access_token(token)
-    twitter_credentials = {
-        'ACCESS_TOKEN' : access_token,
-        'ACCESS_SECRET' : access_secret
-    }
-    twitter_login_state = check_login_state()
-
-    if not twitter_login_state:
-        with open(os.getenv('TWITTER_SECRET_JSON'), 'w') as fp:
-            json.dump(twitter_credentials, fp)
-        fp.close()
-    twitter_login_state = check_login_state()
-    return redirect('/', 302)
+from app.plataforms.twitter.login_twitter import login_twitter_final
+app.register_blueprint(login_twitter_final)
 
 def Button_handler():
     global twitter, facebook, instagram, telegram, furaffinity, redirect_user, handles
@@ -97,9 +82,9 @@ def Button_handler():
     elif request.form.get('select_image') == 'select_image':
         images = select_images()
         try:
-            if os.path.isfile('./temp/images.json'):
-                os.remove('./temp/images.json')
-            with open('./temp/images.json', 'w') as fp:
+            if os.path.isfile('./Post_It/app/temp/images.json'):
+                os.remove('./Post_It/app/temp/images.json')
+            with open('./Post_It/app/temp/images.json', 'w') as fp:
                 print(images)
                 json.dump(images, fp)
             fp.close()
@@ -153,17 +138,17 @@ except:
     pass   
 
 try:
-    os.makedirs('./temp')
+    os.makedirs('./Post_It/app/temp')
 except:
     print('temp already exists')
 
 try:
-    os.makedirs('./secrets')
+    os.makedirs('./Post_It/Secrets')
 except:
     print('secrets already exists')
 
-if os.path.isfile('./temp/images.json'):
-    os.remove('./temp/images.json')
+if os.path.isfile('./Post_It/app/temp/images.json'):
+    os.remove('./Post_It/app/temp/images.json')
 
 init()
 create_app() 
