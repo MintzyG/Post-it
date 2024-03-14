@@ -42,44 +42,48 @@ app.register_blueprint(login_twitter_final)
 
 def Button_handler():
     global twitter, facebook, instagram, telegram, furaffinity, redirect_user, handles
-    if request.form.get('twitter_toggle') == 'twitter_toggle':
-        twitter = not twitter
-        print(f'Twitter state {twitter}')
-        handles['twitter_toggle'] = twitter
-    elif request.form.get('instagram_toggle') == 'instagram_toggle':
-        instagram = not instagram
-        print(f'instagram state {instagram}')
-        handles['instagram_toggle'] = instagram
-    elif request.form.get('facebook_toggle') == 'facebook_toggle':
-        facebook = not facebook
-        print(f'facebook state {facebook}')
-        handles['facebook_toggle'] = facebook
-    elif request.form.get('furaffinity_toggle') == 'furaffinity_toggle':
-        furaffinity = not furaffinity
-        print(f'furaffinity state {furaffinity}')
-        handles['furaffinity_toggle'] = furaffinity
-    elif request.form.get('telegram_toggle') == 'telegram_toggle':
-        telegram = not telegram
-        print(f'telegram state {telegram}')
-        handles['telegram_toggle'] = telegram
 
-    elif request.form.get('twitter_login') == 'twitter_login' and twitter:
-        global redirect_url, oauth1_twitter
-        tuple = TL.handle_user()
-        redirect_url = tuple[0]
-        oauth1_twitter = tuple[1]
-        redirect_user = True
-        return
-    elif request.form.get('instagram_login') == 'instagram_login' and instagram:
-        pass
-    elif request.form.get('facebook_login') == 'facebook_login' and facebook:
-        pass
-    elif request.form.get('furaffinity_login') == 'furaffinity_login' and furaffinity:
-        pass
-    elif request.form.get('telegram_login') == 'telegram_login' and telegram:
-        pass
+    match request.form.get('submit_toggle'):
+        case 'twitter_toggle':
+            twitter = not twitter
+            print(f'Twitter state {twitter}')
+            handles['twitter_toggle'] = twitter
+        case 'instagram_toggle':
+            instagram = not instagram
+            print(f'instagram state {instagram}')
+            handles['instagram_toggle'] = instagram
+        case 'facebook_toggle':
+            facebook = not facebook
+            print(f'facebook state {facebook}')
+            handles['facebook_toggle'] = facebook
+        case 'furaffinity_toggle':
+            furaffinity = not furaffinity
+            print(f'furaffinity state {furaffinity}')
+            handles['furaffinity_toggle'] = furaffinity
+        case 'telegram_toggle':
+            telegram = not telegram
+            print(f'telegram state {telegram}')
+            handles['telegram_toggle'] = telegram
 
-    elif request.form.get('select_image') == 'select_image':
+    match request.form.get('submit_login'):
+        case 'twitter_login':
+            if (twitter):
+                global redirect_url, oauth1_twitter
+                tuple = TL.handle_user()
+                redirect_url = tuple[0]
+                oauth1_twitter = tuple[1]
+                redirect_user = True
+                return  
+        case 'instagram_toggle':
+            pass
+        case 'facebook_toggle':
+            pass
+        case 'furaffinity_toggle':
+            pass
+        case 'telegram_toggle':
+            pass
+
+    if request.form.get('select_image') == 'select_image':
         images = select_images()
         try:
             if os.path.isfile('./Post_It/app/temp/images.json'):
@@ -91,7 +95,7 @@ def Button_handler():
         except:
             print('Deu não')
 
-    elif request.form.get('post') == 'post':
+    if request.form.get('post') == 'post':
         #Generalize posting
         texto = request.form.get('input_text')
         os.environ['BODY'] = texto

@@ -23,70 +23,72 @@
         </form>
 
     </div>
+
     <div id="social_media_buttons_parent">
         <div id="social_media_buttons">
+            
             <div id="rows">
                 <form method="post">
                     {% if handles.twitter_toggle %}
-                        <button type="submit" style='background-image: url("../static/assets/twitter_logo.png"); background-size: 56px; background-position: center; border: solid 2px;' name="twitter_toggle" value="twitter_toggle">  </button>
+                        <button type="submit" style='background-image: url("../static/assets/twitter_logo.png"); background-size: 56px; background-position: center; border: solid 2px;' name="submit_toggle" value="twitter_toggle">  </button>
                     {% else %}
-                        <button type="submit" style='background-image: url("../static/assets/twitter_logo.png"); background-size: 56px; background-position: center; filter: brightness(50%); border: solid 2px;' name="twitter_toggle" value="twitter_toggle">  </button>
+                        <button type="submit" style='background-image: url("../static/assets/twitter_logo.png"); background-size: 56px; background-position: center; filter: brightness(50%); border: solid 2px;' name="submit_toggle" value="twitter_toggle">  </button>
                     {% endif %}
                 </form>
                 <form method="post">
-                    <button type="submit" class="btn_small" name="twitter_login" value="twitter_login"> TTL </button>
+                    <button type="submit" class="btn_small" name="submit_login" value="twitter_login"> TTL </button>
                 </form>
             </div>
     
             <div id="rows">
                 <form method="post">
                     {% if handles.instagram_toggle %}
-                        <button type="submit" style='background-image: url("../static/assets/instagram_logo.png"); background-size: 47px; background-position: center; border: solid 2px;' name="instagram_toggle" value="instagram_toggle">  </button>
+                        <button type="submit" style='background-image: url("../static/assets/instagram_logo.png"); background-size: 47px; background-position: center; border: solid 2px;' name="submit_toggle" value="instagram_toggle">  </button>
                     {% else %}
-                        <button type="submit" style='background-image: url("../static/assets/instagram_logo.png"); background-size: 47px; background-position: center; filter: brightness(50%); border: solid 2px;' name="instagram_toggle" value="instagram_toggle">  </button>
+                        <button type="submit" style='background-image: url("../static/assets/instagram_logo.png"); background-size: 47px; background-position: center; filter: brightness(50%); border: solid 2px;' name="submit_toggle" value="instagram_toggle">  </button>
                     {% endif %}
                 </form>
                 <form method="post">
-                    <button type="submit"  class="btn_small" name="instagram_login" value="instagram_login"> IGL </button>
+                    <button type="submit"  class="btn_small" name="submit_login" value="instagram_login"> IGL </button>
                 </form>
             </div>
     
             <div id="rows">
                 <form method="post">
                     {% if handles.facebook_toggle %}
-                        <button type="submit" style='background-image: url("../static/assets/facebook_logo.png"); background-size: 47px; background-position: center; border: solid 2px;' name="facebook_toggle" value="facebook_toggle">  </button>
+                        <button type="submit" style='background-image: url("../static/assets/facebook_logo.png"); background-size: 47px; background-position: center; border: solid 2px;' name="submit_toggle" value="facebook_toggle">  </button>
                     {% else %}
-                        <button type="submit" style='background-image: url("../static/assets/facebook_logo.png"); background-size: 47px; background-position: center; filter: brightness(50%); border: solid 2px;' name="facebook_toggle" value="facebook_toggle">  </button>
+                        <button type="submit" style='background-image: url("../static/assets/facebook_logo.png"); background-size: 47px; background-position: center; filter: brightness(50%); border: solid 2px;' name="submit_toggle" value="facebook_toggle">  </button>
                     {% endif %}
                 </form>
                 <form method="post">
-                    <button type="submit" class="btn_small" name="facebook_login" value="facebook_login"> FBL </button>
+                    <button type="submit" class="btn_small" name="submit_login" value="facebook_login"> FBL </button>
                 </form>
             </div>
     
             <div id="rows">
                 <form method="post">
                     {% if handles.furaffinity_toggle %}
-                        <button type="submit" style='background-image: url("../static/assets/furaffinity_logo.png"); background-size: 48px; background-position: center; border: solid 2px;' name="furaffinity_toggle" value="furaffinity_toggle">  </button>
+                        <button type="submit" style='background-image: url("../static/assets/furaffinity_logo.png"); background-size: 48px; background-position: center; border: solid 2px;' name="submit_toggle" value="furaffinity_toggle">  </button>
                     {% else %}
-                        <button type="submit" style='background-image: url("../static/assets/furaffinity_logo.png"); background-size: 48px; background-position: center; filter: brightness(50%); border: solid 2px;' name="furaffinity_toggle" value="furaffinity_toggle">  </button>
+                        <button type="submit" style='background-image: url("../static/assets/furaffinity_logo.png"); background-size: 48px; background-position: center; filter: brightness(50%); border: solid 2px;' name="submit_toggle" value="furaffinity_toggle">  </button>
                     {% endif %}
                 </form>
                 <form method="post">
-                    <button type="submit" class="btn_small" name="furaffinity_login" value="furaffinity_login"> FAL </button>
+                    <button type="submit" class="btn_small" name="submit_login" value="furaffinity_login"> FAL </button>
                 </form>
             </div>
     
             <div id="rows">
                 <form method="post">
                     {% if handles.telegram_toggle %}
-                        <button type="submit" style='background-image: url("../static/assets/telegram_logo.png"); background-size: 47px; background-position: center; border: solid 2px;' name="telegram_toggle" value="telegram_toggle">  </button>
+                        <button type="submit" style='background-image: url("../static/assets/telegram_logo.png"); background-size: 47px; background-position: center; border: solid 2px;' name="submit_toggle" value="telegram_toggle">  </button>
                     {% else %}
-                        <button type="submit" style='background-image: url("../static/assets/telegram_logo.png"); background-size: 47px; background-position: center; filter: brightness(50%); border: solid 2px;' name="telegram_toggle" value="telegram_toggle">  </button>
+                        <button type="submit" style='background-image: url("../static/assets/telegram_logo.png"); background-size: 47px; background-position: center; filter: brightness(50%); border: solid 2px;' name="submit_toggle" value="telegram_toggle">  </button>
                     {% endif %}
                 </form>
                 <form method="post">
-                    <button type="submit" class="btn_small" name="telegram_login" value="telegram_login"> TGL </button>
+                    <button type="submit" class="btn_small" name="submit_login" value="telegram_login"> TGL </button>
                 </form>
             </div>
         </div>
