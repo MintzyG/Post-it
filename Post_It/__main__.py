@@ -2,11 +2,14 @@ from flask import Flask, request, render_template, redirect
 import tweepy as TP
 import os, json
 
+from colorama import Fore, Style
+
 import Secrets.twitter_api_credentials as TS
 import app.plataforms.twitter.login_twitter as TL
 import app.plataforms.twitter.twitter_post as TT
 from app.plataforms.twitter.check_twitter_login import check_login_state
 from app.helpers.check_empty_file import check_file
+from app.helpers.startup import startup
 from app.helpers.select_images import select_images
 
 os.environ['TWITTER_SECRET_JSON'] = './Post_It/app/plataforms/twitter/Secrets/twitter_login.json' 
@@ -133,27 +136,9 @@ def init():
     twitter, instagram, facebook, furaffinity, telegram = False, False, False, False, False
     redirect_user = False
     redirect_url  = None
+    print(Fore.GREEN + '[INIT](Global-Variables): Initialized all global plataform variables' + Style.RESET_ALL)
 
-try:
-    with open(os.getenv('TWITTER_SECRET_JSON'), 'x+') as fp:
-        print('Created tt_secrets File')
-    fp.close()
-except:
-    print('Failed to create tt_secrets file')
-
-try:
-    os.makedirs('./Post_It/app/temp')
-except:
-    print('temp already exists')
-
-try:
-    os.makedirs('./Post_It/Secrets')
-except:
-    print('secrets already exists')
-
-if os.path.isfile('./Post_It/app/temp/images.json'):
-    os.remove('./Post_It/app/temp/images.json')
-
+startup()
 init()
 create_app() 
 if __name__ == "__main__":

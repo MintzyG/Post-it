@@ -15,6 +15,7 @@
 	        pkgs.python310Packages.tkinter
 	        python310Packages.flask-restful
 	        python310Packages.requests-oauthlib
+          python310Packages.colorama
         ];
       };
   };
