@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template, redirect
 import tweepy as TP
 import os, json
+import atexit
 
 from colorama import Fore, Style
 
@@ -136,6 +137,23 @@ def init():
     redirect_user = False
     redirect_url  = None
     print(Fore.GREEN + '[INIT](Global-Variables): Initialized all global plataform variables' + Style.RESET_ALL)
+
+
+# An option should be given to the user to whether or not to logoff on application exit 
+# This should only keep existing if the app is compiled and ran locally
+@atexit.register
+def exit_handler():
+    try:
+        os.remove(os.getenv('TWITTER_SECRET_JSON'))
+    except:
+        print(Fore.GREEN + '[AT_EXIT](file removal): .../plataforms/twitter/Secrets/twitter_login.json already removed!')
+
+    try:
+        os.remove('./Post_It/app/temp/images.json')
+    except:
+        print(Fore.GREEN + '[AT_EXIT](file removal): ./Post_It/app/temp/images.json already removed!')
+
+    print(Fore.YELLOW + "Application closed" + Style.RESET_ALL)
 
 startup()
 init()
