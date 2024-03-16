@@ -4,7 +4,7 @@ from flask import Flask, request, render_template, redirect, Blueprint
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 from Secrets import twitter_api_credentials as TS
-from plataforms.twitter.check_twitter_login import check_login_state
+from app.plataforms.twitter.check_twitter_login import check_login_state
 
 import tweepy as TP
 
@@ -20,7 +20,7 @@ def handle_user():
 import __main__
 login_twitter_final = Blueprint('login_twitter_final', __name__, template_folder='templates')
 @login_twitter_final.route('/twitter_login', methods=['GET', 'POST'])
-def finalize_login():
+def finalize_twitter_login():
     print(request.method)
     token = request.args.get('oauth_verifier')
     access_token, access_secret = __main__.oauth1_twitter.get_access_token(token)
