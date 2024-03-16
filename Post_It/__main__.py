@@ -9,7 +9,7 @@ from app.plataforms.twitter.check_twitter_login import check_login_state
 from app.helpers.check_empty_file import check_file
 from app.helpers.select_images import select_images
 
-os.environ['TWITTER_SECRET_JSON'] = './Post_It/app/plataforms/twitter/twitter_login.json' 
+os.environ['TWITTER_SECRET_JSON'] = './Post_It/app/plataforms/twitter/Secrets/twitter_login.json' 
 
 app = Flask(__name__,
             static_folder="app/web_interface/static",
@@ -135,11 +135,11 @@ def init():
     redirect_url  = None
 
 try:
-    with open(os.getenv('TWITTER_SECRET_JSON'), 'x') as fp:
-        pass
+    with open(os.getenv('TWITTER_SECRET_JSON'), 'x+') as fp:
+        print('Created tt_secrets File')
     fp.close()
 except:
-    pass   
+    print('Failed to create tt_secrets file')
 
 try:
     os.makedirs('./Post_It/app/temp')

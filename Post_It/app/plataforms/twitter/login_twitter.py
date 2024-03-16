@@ -22,6 +22,8 @@ login_twitter_final = Blueprint('login_twitter_final', __name__, template_folder
 @login_twitter_final.route('/twitter_login', methods=['GET', 'POST'])
 def finalize_twitter_login():
     print(request.method)
+    secret_path = os.getenv('TWITTER_SECRET_JSON')
+                            
     token = request.args.get('oauth_verifier')
     access_token, access_secret = __main__.oauth1_twitter.get_access_token(token)
     twitter_credentials = {
@@ -30,16 +32,16 @@ def finalize_twitter_login():
     } 
 
     try:
-        if os.path.isfile('./Post_It/app/plataforms/twitter/twitter_login.json'):
-            os.remove('./Post_It/app/plataforms/twitter/twitter_login.json')
-            open('./Post_It/app/plataforms/twitter/twitter_login.json', 'a').close()
+        if os.path.isfile(secret_path):
+            os.remove(secret_path)
+            open(secret_path, 'x+').close()
     except:
         pass
     
     twitter_login_state = check_login_state()
     
     if not twitter_login_state:
-        with open(os.getenv('TWITTER_SECRET_JSON'), 'w') as fp:
+        with open(secret_path, 'w') as fp:
             json.dump(twitter_credentials, fp)
         fp.close()
     twitter_login_state = check_login_state()
