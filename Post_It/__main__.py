@@ -70,13 +70,12 @@ def Button_handler():
 
     match request.form.get('submit_login'):
         case 'twitter_login':
-            if (twitter):
-                global redirect_url, oauth1_twitter
-                tuple = TL.handle_user()
-                redirect_url = tuple[0]
-                oauth1_twitter = tuple[1]
-                redirect_user = True
-                return  
+            global redirect_url, oauth1_twitter
+            tuple = TL.handle_user()
+            redirect_url = tuple[0]
+            oauth1_twitter = tuple[1]
+            redirect_user = True
+            return  
         case 'instagram_toggle':
             pass
         case 'facebook_toggle':
